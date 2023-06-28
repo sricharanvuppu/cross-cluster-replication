@@ -12,6 +12,7 @@
 package org.opensearch.replication.integ.rest
 
 
+import kotlinx.coroutines.delay
 import org.opensearch.replication.IndexUtil
 import org.opensearch.replication.MultiClusterAnnotations
 import org.opensearch.replication.MultiClusterRestTestCase
@@ -1067,7 +1068,6 @@ class StartReplicationIT: MultiClusterRestTestCase() {
                 val sourceMap = mapOf("name" to randomAlphaOfLength(5))
                 leaderClient.index(IndexRequest(leaderIndexName).id(i.toString()).source(sourceMap), RequestOptions.DEFAULT)
             }
-
             followerClient.pauseReplication(followerIndex2)
             followerClient.stopReplication(followerIndex3)
             assertBusy({
